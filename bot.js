@@ -254,7 +254,7 @@ client.on('guildMemberAdd', async (member) => {
 });
 
 // ─── Démarrage ────────────────────────────────────────────────────────────────
-client.login(config.token).catch((err) => {
+client.login(process.env.TOKEN || config.token)
   console.error('❌ Impossible de se connecter à Discord :', err.message);
   process.exit(1);
 });
