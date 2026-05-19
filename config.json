@@ -1,0 +1,6 @@
+{
+  "token": "MTUwNjAxNzk2ODY0NjEzMTc4Mg.Gt-2Md.4YTAWhTlReEuFyqLU3zGMzJIuU784m8t2lAnsg",
+  "welcomeChannelId": "1505991271901040671",
+  "welcomeImagePath": "./welcome.png",
+  "welcomeMessage": "🎉 Bienvenue {user} sur **{server}** ! Tu es notre **{memberCount}ème** membre !"
+}
