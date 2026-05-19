@@ -1,10 +1,19 @@
 const { Client, GatewayIntentBits, AttachmentBuilder } = require('discord.js');
-const { createCanvas, loadImage } = require('@napi-rs/canvas');
+const { createCanvas, loadImage, GlobalFonts } = require('@napi-rs/canvas');
 const fs    = require('fs');
 const path  = require('path');
 const https = require('https');
 
 const config = require('./config.json');
+
+// Enregistre la police Montserrat si disponible
+const fontPath = path.join(__dirname, 'Montserrat.ttf');
+if (fs.existsSync(fontPath)) {
+  GlobalFonts.registerFromPath(fontPath, 'Montserrat');
+  console.log('Police Montserrat chargee');
+}
+
+const FONT = fs.existsSync(fontPath) ? 'Montserrat' : 'sans-serif';
 
 const client = new Client({
   intents: [
@@ -130,7 +139,7 @@ async function generateWelcomeImage(member) {
     ctx.fillRect(ax - hexR, ay - hexR, hexR * 2, hexR * 2);
     ctx.restore();
     ctx.fillStyle = 'white';
-    ctx.font = 'bold 90px sans-serif';
+    ctx.font = 'bold 90px ' + FONT;
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
     ctx.fillText(member.user.username[0].toUpperCase(), ax, ay);
@@ -145,12 +154,12 @@ async function generateWelcomeImage(member) {
   const textX = 370;
   ctx.textAlign = 'left';
 
-  ctx.font      = 'bold 28px sans-serif';
+  ctx.font      = 'bold 28px ' + FONT;
   ctx.fillStyle = '#06b6d4';
   ctx.fillText('--  BIENVENUE  --', textX, H / 2 - 115);
 
   const username = member.user.username;
-  ctx.font        = 'bold 90px sans-serif';
+  ctx.font        = 'bold 88px ' + FONT;
   ctx.fillStyle   = '#ffffff';
   ctx.shadowColor = '#7c3aed';
   ctx.shadowBlur  = 28;
@@ -168,15 +177,15 @@ async function generateWelcomeImage(member) {
   ctx.lineTo(textX + 600, H / 2 + 26);
   ctx.stroke();
 
-  ctx.font      = 'bold 36px sans-serif';
+  ctx.font      = 'bold 34px ' + FONT;
   ctx.fillStyle = '#e2e8f0';
   ctx.fillText('sur le serveur  MCjules99 club !', textX, H / 2 + 80);
 
-  ctx.font      = '30px sans-serif';
+  ctx.font      = '28px ' + FONT;
   ctx.fillStyle = '#94a3b8';
   ctx.fillText('Amuse toi bien ! :)', textX, H / 2 + 128);
 
-  ctx.font      = '22px sans-serif';
+  ctx.font      = '20px ' + FONT;
   ctx.fillStyle = '#4a5568';
   ctx.fillText('Membre #' + member.guild.memberCount, textX, H / 2 + 168);
 
